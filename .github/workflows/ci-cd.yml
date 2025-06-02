@@ -10,8 +10,8 @@ env:
   AWS_REGION: us-east-1
   ECR_REPOSITORY: aws-ci-cd-test
   ECR_REGISTRY: public.ecr.aws/n6s5z7b4
-  ECS_SERVICE: aws-ci-cd-test-task-service-hzlllr24
-  ECS_CLUSTER: humble-dolphin-3nn9ky
+  ECS_SERVICE: aws-ci-cd-test-task-service-jtu2gjgv
+  ECS_CLUSTER: courageous-turtle-pb785w
   ECS_TASK_DEFINITION: task-definition.json
   CONTAINER_NAME: aws-ci-cd-test
 
