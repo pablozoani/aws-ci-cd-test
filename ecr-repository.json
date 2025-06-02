@@ -1,0 +1,10 @@
+{
+  "repository": {
+    "repositoryArn": "arn:aws:ecr-public::431027097382:repository/aws-ci-cd-test",
+    "registryId": "431027097382",
+    "repositoryName": "aws-ci-cd-test",
+    "repositoryUri": "public.ecr.aws/n6s5z7b4/aws-ci-cd-test",
+    "createdAt": "2025-06-01T12:16:32.969000-03:00"
+  },
+  "catalogData": {}
+}

@@ -1,0 +1,56 @@
+{
+  "taskDefinitionArn": "arn:aws:ecs:us-east-2:431027097382:task-definition/aws-ci-cd-test-task:2",
+  "containerDefinitions": [
+    {
+      "name": "aws-ci-cd-test",
+      "image": "public.ecr.aws/n6s5z7b4/aws-ci-cd-test:latest",
+      "cpu": 0,
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "hostPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [],
+      "mountPoints": [],
+      "volumesFrom": [],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/aws-ci-cd-test",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "systemControls": []
+    }
+  ],
+  "family": "aws-ci-cd-test-task",
+  "networkMode": "bridge",
+  "revision": 2,
+  "volumes": [],
+  "status": "ACTIVE",
+  "requiresAttributes": [
+    {
+      "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+    },
+    {
+      "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+    }
+  ],
+  "placementConstraints": [],
+  "compatibilities": [
+    "EXTERNAL",
+    "EC2"
+  ],
+  "requiresCompatibilities": [
+    "EC2"
+  ],
+  "cpu": "256",
+  "memory": "512",
+  "registeredAt": "2025-06-01T17:06:51.401Z",
+  "registeredBy": "arn:aws:iam::431027097382:root",
+  "tags": []
+}
