@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 env:
-  IMAGE_NAME: azure-ci-cd-test
+  DOCKER_IMAGE_REPOSITORY: azure-ci-cd-test
 
 jobs:
   build:
@@ -47,7 +47,7 @@ jobs:
       - name: Build and Push Image
         id: build-and-push-image
         env:
-          IMAGE_TAG: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME:${{ github.sha }}
+          IMAGE_TAG: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/${{ env.DOCKER_IMAGE_REPOSITORY }}:${{ github.sha }}
         run: |
           docker image build -t $IMAGE_TAG .
           docker image push $IMAGE_TAG
