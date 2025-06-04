@@ -7,7 +7,7 @@ on:
     branches: [ "master" ]
 
 env:
-  CONTAINER_IMAGE_NAME: azure-ci-cd-test
+  IMAGE_NAME: azure-ci-cd-test
 
 jobs:
   build:
@@ -37,16 +37,18 @@ jobs:
       - name: Build with Gradle Wrapper
         run: ./gradlew build
 
-      - name: Log in to Azure registry
+      - name: Log in to Azure Registry
         run: |
           docker login \
           --username ${{ secrets.AZURE_REGISTRY_USERNAME }} \
           --password ${{ secrets.AZURE_REGISTRY_PASSWORD }} \
           ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
 
-#      - name: Build and push image
-#        env:
-#          IMAGE_TAG:
-#        run: |
-#          docker image build \
-#          -t ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/
+      - name: Build and Push Image
+        id: build-and-push-image
+        env:
+          IMAGE_TAG: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/$IMAGE_NAME:${{ github.sha }}
+        run: |
+          docker image build -t $IMAGE_TAG .
+          docker image push $IMAGE_TAG
+          echo "image=$IMAGE_TAG" >> $GITHUB_OUTPUT
