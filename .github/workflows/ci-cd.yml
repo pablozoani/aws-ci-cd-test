@@ -7,13 +7,7 @@ on:
     branches: [ "master" ]
 
 env:
-  AWS_REGION: us-east-1
-  ECR_REPOSITORY: aws-ci-cd-test
-  ECR_REGISTRY: public.ecr.aws/n6s5z7b4
-  ECS_SERVICE: aws-ci-cd-test-task-service-jtu2gjgv
-  ECS_CLUSTER: courageous-turtle-pb785w
-  ECS_TASK_DEFINITION: task-definition.json
-  CONTAINER_NAME: aws-ci-cd-test
+  CONTAINER_IMAGE_NAME: azure-ci-cd-test
 
 jobs:
   build:
@@ -43,44 +37,16 @@ jobs:
       - name: Build with Gradle Wrapper
         run: ./gradlew build
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-
-#      - name: Login to ECR Private
-#        id: login-ecr
-#        uses: aws-actions/amazon-ecr-login@v2
-
-      - name: Login to Amazon ECR Public
+      - name: Log in to Azure registry
         run: |
-          aws ecr-public get-login-password --region $AWS_REGION | \
-          docker login --username AWS --password-stdin public.ecr.aws
+          docker login \
+          --username ${{ secrets.AZURE_REGISTRY_USERNAME }} \
+          --password ${{ secrets.AZURE_REGISTRY_PASSWORD }} \
+          ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
 
-      - name: Build, tag and push image to registry.
-        env:
-          #ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ github.sha }}
-        id: build-image
-        run: |
-          docker image build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker image push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-
-      - name: Fill in the new image ID in the Amazon ECS task definition
-        id: task-def
-        uses: aws-actions/amazon-ecs-render-task-definition@v1
-        with:
-          task-definition: ${{ env.ECS_TASK_DEFINITION }}
-          container-name: ${{ env.CONTAINER_NAME }}
-          image: ${{ steps.build-image.outputs.image }}
-
-      - name: Deploy Amazon ECS task definition
-        uses: aws-actions/amazon-ecs-deploy-task-definition@v2
-        with:
-          task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: ${{ env.ECS_SERVICE }}
-          cluster: ${{ env.ECS_CLUSTER }}
-          wait-for-service-stability: true
+#      - name: Build and push image
+#        env:
+#          IMAGE_TAG:
+#        run: |
+#          docker image build \
+#          -t ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/

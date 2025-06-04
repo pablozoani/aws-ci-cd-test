@@ -1,1 +1,1 @@
-rootProject.name = "aws-ci-cd-test"
+rootProject.name = "azure-ci-cd-test"

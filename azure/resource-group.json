@@ -1,0 +1,11 @@
+{
+  "id": "/subscriptions/5a82755f-71a3-4f04-a26b-90079e9f0faf/resourceGroups/azure-ci-cd-test-rg",
+  "location": "eastus",
+  "managedBy": null,
+  "name": "azure-ci-cd-test-rg",
+  "properties": {
+    "provisioningState": "Succeeded"
+  },
+  "tags": null,
+  "type": "Microsoft.Resources/resourceGroups"
+}

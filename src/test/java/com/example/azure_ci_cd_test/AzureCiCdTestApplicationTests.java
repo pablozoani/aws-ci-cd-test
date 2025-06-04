@@ -1,10 +1,10 @@
-package com.example.aws_ci_cd_test;
+package com.example.azure_ci_cd_test;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AwsCiCdTestApplicationTests {
+class AzureCiCdTestApplicationTests {
 
 	@Test
 	void contextLoads() {
