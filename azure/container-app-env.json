@@ -1,0 +1,73 @@
+{
+  "id": "/subscriptions/5a82755f-71a3-4f04-a26b-90079e9f0faf/resourceGroups/azure-ci-cd-test-rg/providers/Microsoft.App/managedEnvironments/azure-ci-cd-test-env",
+  "location": "East US",
+  "name": "azure-ci-cd-test-env",
+  "properties": {
+    "appInsightsConfiguration": null,
+    "appLogsConfiguration": {
+      "destination": "log-analytics",
+      "logAnalyticsConfiguration": {
+        "customerId": "0aa76839-74a5-472f-8869-0df9a6ed423a",
+        "dynamicJsonColumns": false,
+        "sharedKey": null
+      }
+    },
+    "availabilityZones": null,
+    "customDomainConfiguration": {
+      "certificateKeyVaultProperties": null,
+      "certificatePassword": null,
+      "certificateValue": null,
+      "customDomainVerificationId": "5FC71ACD2C6495583D48FDDFAC3901B9EFD300237323D12F5707ECE86046B12E",
+      "dnsSuffix": null,
+      "expirationDate": null,
+      "subjectName": null,
+      "thumbprint": null
+    },
+    "daprAIConnectionString": null,
+    "daprAIInstrumentationKey": null,
+    "daprConfiguration": {
+      "version": "1.13.6-msft.2"
+    },
+    "defaultDomain": "whitebush-0349f83f.eastus.azurecontainerapps.io",
+    "diskEncryptionConfiguration": null,
+    "eventStreamEndpoint": "https://eastus.azurecontainerapps.dev/subscriptions/5a82755f-71a3-4f04-a26b-90079e9f0faf/resourceGroups/azure-ci-cd-test-rg/managedEnvironments/azure-ci-cd-test-env/eventstream",
+    "infrastructureResourceGroup": null,
+    "ingressConfiguration": null,
+    "kedaConfiguration": {
+      "version": "2.16.1"
+    },
+    "openTelemetryConfiguration": null,
+    "peerAuthentication": {
+      "mtls": {
+        "enabled": false
+      }
+    },
+    "peerTrafficConfiguration": {
+      "encryption": {
+        "enabled": false
+      }
+    },
+    "provisioningState": "Succeeded",
+    "publicNetworkAccess": "Enabled",
+    "staticIp": "128.203.88.67",
+    "vnetConfiguration": null,
+    "workloadProfiles": [
+      {
+        "enableFips": false,
+        "name": "Consumption",
+        "workloadProfileType": "Consumption"
+      }
+    ],
+    "zoneRedundant": false
+  },
+  "resourceGroup": "azure-ci-cd-test-rg",
+  "systemData": {
+    "createdAt": "2025-06-04T11:36:44.0356095",
+    "createdBy": "pablozoani@hotmail.com",
+    "createdByType": "User",
+    "lastModifiedAt": "2025-06-04T11:36:44.0356095",
+    "lastModifiedBy": "pablozoani@hotmail.com",
+    "lastModifiedByType": "User"
+  },
+  "type": "Microsoft.App/managedEnvironments"
+}

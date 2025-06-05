@@ -7,7 +7,9 @@ on:
     branches: [ "master" ]
 
 env:
-  DOCKER_IMAGE_REPOSITORY: azure-ci-cd-test
+  IMAGE_NAME: azure-ci-cd-test
+  CONTAINER_NAME: azure-ci-cd-test-app
+  RESOURCE_GROUP_NAME: azure-ci-cd-test-rg
 
 jobs:
   build:
@@ -37,18 +39,31 @@ jobs:
       - name: Build with Gradle Wrapper
         run: ./gradlew build
 
-      - name: Log in to Azure Registry
+      - name: Log in to the Container Registry
         run: |
           docker login \
-          --username ${{ secrets.AZURE_REGISTRY_USERNAME }} \
-          --password ${{ secrets.AZURE_REGISTRY_PASSWORD }} \
-          ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}
+            --username ${{ secrets.CONTAINER_REGISTRY_USERNAME }} \
+            --password ${{ secrets.CONTAINER_REGISTRY_PASSWORD }} \
+            ${{ secrets.CONTAINER_REGISTRY_SERVER }}
 
       - name: Build and Push Image
         id: build-and-push-image
         env:
-          IMAGE_TAG: ${{ secrets.AZURE_REGISTRY_LOGIN_SERVER }}/${{ env.DOCKER_IMAGE_REPOSITORY }}:${{ github.sha }}
+          IMAGE_TAG: ${{ secrets.CONTAINER_REGISTRY_SERVER }}/${{ env.IMAGE_NAME }}:${{ github.sha }}
         run: |
           docker image build -t $IMAGE_TAG .
           docker image push $IMAGE_TAG
           echo "image=$IMAGE_TAG" >> $GITHUB_OUTPUT
+          
+      - name: Deploy Image
+        uses: azure/cli@v2
+        with:
+          inlineScript: |
+            az login --service-principal \
+              --username ${{ secrets.AZURE_CLIENT_ID }} \
+              --password ${{ secrets.AZURE_CLIENT_SECRET }} \
+              --tenant ${{ secrets.AZURE_TENANT_ID }}
+            az containerapp update \
+              --name ${{ env.CONTAINER_NAME }} \
+              --resource-group {{ env.RESOURCE_GROUP_NAME }} \
+              --image ${{ steps.build-and-push-image.outputs.image }}
