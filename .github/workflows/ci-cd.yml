@@ -65,5 +65,5 @@ jobs:
               --tenant ${{ secrets.AZURE_TENANT_ID }}
             az containerapp update \
               --name ${{ env.CONTAINER_NAME }} \
-              --resource-group {{ env.RESOURCE_GROUP_NAME }} \
+              --resource-group ${{ env.RESOURCE_GROUP_NAME }} \
               --image ${{ steps.build-and-push-image.outputs.image }}
